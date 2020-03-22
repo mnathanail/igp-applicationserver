@@ -1,0 +1,11 @@
+package com.diaulos.igp.service;
+
+import java.util.Map;
+
+import com.diaulos.igp.model.Cert;
+
+public class CertService {
+	
+	private static Map<Integer,Cert> foreas;
+
+}

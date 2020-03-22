@@ -1,0 +1,5 @@
+package com.diaulos.igp.model;
+
+public class Cert {
+
+}

@@ -1,0 +1,39 @@
+package com.diaulos.igp.model;
+
+public class Cert {
+	
+  private String cName;
+  private String cTin;
+  private String cTitle;
+  
+public Cert() {}
+    
+public Cert(String cName, String cTin, String cTitle) {
+	this.cName = cName;
+	this.cTin = cTin;
+	this.cTitle = cTitle;
+}
+
+
+public String getcName() {
+	return cName;
+}
+public void setcName(String cName) {
+	this.cName = cName;
+}
+public String getcTin() {
+	return cTin;
+}
+public void setcTin(String cTin) {
+	this.cTin = cTin;
+}
+public String getcTitle() {
+	return cTitle;
+}
+public void setcTitle(String cTitle) {
+	this.cTitle = cTitle;
+}
+  
+  
+  
+}

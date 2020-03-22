@@ -1,0 +1,18 @@
+package com.diaulos.igp.service;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import com.diaulos.igp.model.Cert;
+import com.diaulos.igp.repo.CertRepo;
+
+public class CertService {
+	
+	private CertRepo certRepo;
+
+	public Collection<Cert> getAllpistous(){
+		return certRepo.getAllpistous();
+	}
+	
+
+}

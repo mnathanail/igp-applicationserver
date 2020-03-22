@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\Users\user\Desktop\DiaulOs\.metadata\.plugins\org.eclipse.jdt.core
+2780718205.index

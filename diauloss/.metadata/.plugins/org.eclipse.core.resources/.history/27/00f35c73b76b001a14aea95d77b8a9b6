@@ -1,0 +1,7 @@
+package com.diaulos.igp.service;
+
+public class CertService {
+	
+	private static Map<Integer,Cert> foreas;
+
+}

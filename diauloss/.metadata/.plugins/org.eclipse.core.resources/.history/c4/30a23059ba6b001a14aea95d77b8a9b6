@@ -1,0 +1,17 @@
+package com.diaulos.igp.controller;
+
+import java.util.Collection;
+
+import com.diaulos.igp.model.Cert;
+import com.diaulos.igp.service.CertService;
+
+public class CertController {
+	
+	private CertService certService;
+	
+	public Collection<Cert> getAllpistous(){
+		return certService.getAllpistous();
+	}
+	
+
+}

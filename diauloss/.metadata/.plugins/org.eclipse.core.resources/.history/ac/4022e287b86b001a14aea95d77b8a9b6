@@ -1,0 +1,20 @@
+package com.diaulos.igp.service;
+
+import java.util.Map;
+
+import com.diaulos.igp.model.Cert;
+
+public class CertService {
+	
+	private static Map<Integer,Cert> foreas;
+	
+	
+	static {
+		
+		foreas.put(1, new Cert(1,"Ougk","5001485","kati"));
+		foreas.put(1, new Cert(2,"Ass","3456778","katiAllo"));
+		foreas.put(1, new Cert(3,"Covid","4758437","katiParallo"));
+		
+	}
+
+}
