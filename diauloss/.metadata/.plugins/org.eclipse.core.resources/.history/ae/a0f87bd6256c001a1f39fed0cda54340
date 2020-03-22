@@ -1,0 +1,54 @@
+package com.diaulos.igp.repo;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.diaulos.igp.model.Cert;
+
+@Repository
+public class CertRepoImpl implements CertRepo {
+	
+private static Map<Integer,Cert> pistoi;
+	
+	static {
+		pistoi = new HashMap<Integer,Cert>(){
+		{
+		put(1, new Cert(1,"Ougk","5001485","kati"));
+		put(2, new Cert(2,"Ass","3456778","katiAllo"));
+		put(3, new Cert(3,"Covid","4758437","katiParallo"));
+		put(4, new Cert(4,"lsd","2355456","allou"));
+		}
+		
+		};
+	}
+	
+	@Override
+	public Collection<Cert> getAllpistous(){
+		return this.pistoi.values();
+	}
+	
+	@Override
+	public Cert getPistosById(int id) {
+		return this.pistoi.get(id);
+	}
+	
+	@Override
+	public Cert deletePistosById(int id) {
+		return this.pistoi.remove(id);
+	}
+	
+	@Override
+	public void updatePistos(Cert cert) {
+		Cert update = this.pistoi.get(cert.getcId());
+		update.setcId(cert.getcId());
+		update.setcName(cert.getcName());
+		update.setcTin(cert.getcTin());
+		update.setcTitle(cert.getcTitle());
+		this.pistoi.put(update.getcId(), update);
+	}
+
+}

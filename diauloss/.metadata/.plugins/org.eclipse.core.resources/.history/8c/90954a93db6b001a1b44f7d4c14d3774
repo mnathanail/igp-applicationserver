@@ -1,0 +1,28 @@
+package com.diaulos.igp.service;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.diaulos.igp.model.Cert;
+import com.diaulos.igp.repo.CertRepo;
+
+@Service
+public class CertServiceImp implements CertService {
+
+	@Autowired
+	private CertRepo certRepo;
+
+	@Override
+	public Collection<Cert> getAllpistous(){
+		return certRepo.getAllpistous();
+	}
+	
+	@Override
+	public Cert getPistosById(int id) {
+		return certRepo.getPistosById(id);
+	}
+	
+	
+}

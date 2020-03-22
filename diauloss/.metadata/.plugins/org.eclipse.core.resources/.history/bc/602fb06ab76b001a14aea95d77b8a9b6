@@ -1,0 +1,5 @@
+package com.diaulos.igp.service;
+
+public class CertService {
+
+}

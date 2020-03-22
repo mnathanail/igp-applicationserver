@@ -1,0 +1,34 @@
+Interface Document
+ - docName
+ - authority 
+ - creationDate
+ - expirationDate
+ - protocolNumber
+ - status
+ - isValid
+
+Abstract Document implements Interface Document
+
+Concrete Document implements Interface Document
+
+Project extends Abstract Document
+ - brandName
+ - tin
+ - activity
+
+Sector
+ - uid
+ - tin
+ - activityCodeNumber
+ - registeredTrademark
+ - email
+ - password
+ - phone
+ - address
+
+Dashboard
+ - documents<Concrete Document>
+ - notifications
+ - legalNotices
+ - project
+

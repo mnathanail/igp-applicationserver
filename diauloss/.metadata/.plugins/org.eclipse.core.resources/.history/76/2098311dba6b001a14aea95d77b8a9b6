@@ -1,0 +1,10 @@
+package com.diaulos.igp.controller;
+
+import com.diaulos.igp.service.CertService;
+
+public class CertController {
+	
+	private CertService certService;
+	
+
+}

@@ -1,0 +1,17 @@
+package com.diaulos.igp.repo;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.diaulos.igp.model.Cert;
+
+
+public interface CertRepo {
+
+	 Collection<Cert> getAllpistous();
+	 Cert getPistosById(int id);
+	
+}
