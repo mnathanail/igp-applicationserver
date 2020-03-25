@@ -23,16 +23,19 @@ public class CompanyCertificationSelfServiceImp implements CompanyCertificationS
 	}
 
 	@Override
+	@Transactional
 	public void save(Cert cert) {
 		this.certDao.save(cert);
 	}
 
 	@Override
+	@Transactional
 	public Cert findById(Integer id) {
 		return this.certDao.findById(id).get();
 	}
 
 	@Override
+	@Transactional
 	public void saveAll(List<Cert> certs) {
 		this.certDao.saveAll(certs);
 
