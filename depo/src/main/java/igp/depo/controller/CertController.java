@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import igp.depo.model.Cert;
+import igp.depo.model.CertResponseModel;
 import igp.depo.service.CertService;
 
 
@@ -22,6 +23,7 @@ public class CertController {
 	@Autowired
 	private CertService certService;
 	
+	
 	@GetMapping("/")
 	public String index(){
 		
@@ -29,22 +31,22 @@ public class CertController {
 	}
 	
 	@GetMapping("/bulkcreate")
-	public String bulkcreate() {
+	public CertResponseModel bulkcreate() {
 	this.certService.bulkCreate();
-	return "Fake Certifications are created";
+	return new CertResponseModel("Fake Certifications are created");
 	}
 	
 	@PostMapping("/bulksave")
-	public String saveAll(@RequestBody Cert... cert){
+	public CertResponseModel saveAll(@RequestBody Cert... cert){
 	this.certService.saveAll(cert);
-	return "Certification are saved";
+	return new CertResponseModel("Certifications are created");
 	}
 	
 	
 	@PostMapping("/create")
-	public String create(@RequestBody Cert cert){
+	public CertResponseModel create(@RequestBody Cert cert){
 	this.certService.save(cert);
-	return "Certification is created";
+	return new CertResponseModel("Success");
 	}
 	
 	
