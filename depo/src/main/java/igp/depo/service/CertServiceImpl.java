@@ -20,6 +20,18 @@ public class CertServiceImpl implements CertService {
 	
 	@Override
 	@Transactional
+	public void updateCert(Cert cert) {
+		this.certDao.updateCert(cert.getCompanyId(),cert.getRegulatedActivity(),cert.isDocument1(),cert.isDocument2(),cert.isDocument3(),cert.isDocument4(),cert.isDocument5(),cert.isDocument6(),cert.isDocument7(),cert.isDocument8(),cert.isDocument9(),cert.isDocument10(),cert.isDocument11(),cert.isDocument12(),cert.isDocument13(),cert.isDocument14());
+	}
+	
+	@Override
+	@Transactional
+	public void deleteCert(int id) {
+		this.certDao.deleteCert(id);
+	}
+	
+	@Override
+	@Transactional
 	public List<Cert> findAll(){
 		List<Cert> certs = this.certDao.findAll();
 		List<Cert> certRes = new ArrayList<>();
@@ -37,7 +49,6 @@ public class CertServiceImpl implements CertService {
 		certDao.save(new Cert(cert.getCompanyId(),cert.getRegulatedActivity(),cert.isDocument1(),cert.isDocument2(),cert.isDocument3(),cert.isDocument4(),cert.isDocument5(),cert.isDocument6(),cert.isDocument7(),cert.isDocument8(),cert.isDocument9(),cert.isDocument10(),cert.isDocument11(),cert.isDocument12(),cert.isDocument13(),cert.isDocument14()));
 		}
 	}
-	
 
 	@Override
 	@Transactional
@@ -48,7 +59,6 @@ public class CertServiceImpl implements CertService {
               , new Cert(3,"Klinikh",true,false,true,true,true,true,false,true,true,false,true,true,true,true)
               , new Cert(4,"Xenodoxeio",true,false,true,true,true,true,false,true,true,false,true,true,true,true)
               ));
-		
 	}
 	
 	@Override

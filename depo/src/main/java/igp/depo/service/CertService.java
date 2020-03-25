@@ -16,6 +16,9 @@ public interface CertService {
 	Optional<Cert> findById(int id);
 	
 	void bulkCreate();
+	
+	public void updateCert(Cert cert);
+	public void deleteCert(int id);
 
 	
 }

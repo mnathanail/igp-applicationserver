@@ -15,6 +15,7 @@ public class Cert {
   
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name = "COMPANYID")
   private Integer companyId;
   
   @NotBlank
