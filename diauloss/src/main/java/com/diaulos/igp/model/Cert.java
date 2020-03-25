@@ -47,8 +47,7 @@ public class Cert {
 	@Column(name = "document14")
 	private boolean document14;
 
-
-
+	public Cert() {}
 
 	public Cert(int companyId, String regulatedActivity, boolean document1, boolean document2, boolean document3,
 			boolean document4, boolean document5, boolean document6, boolean document7, boolean document8,
