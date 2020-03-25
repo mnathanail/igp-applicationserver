@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diaulos.igp.model.Cert;
+import com.diaulos.igp.model.CertResponseModel;
 import com.diaulos.igp.service.CompanyCertificationSelfService;
 
 @RestController
@@ -31,17 +32,28 @@ public class CertController {
 	@GetMapping("/bulkcreate")
 	public String bulkcreate() {
 		// save a single Customer
-		this.companyCertificationSelfService.save(new Cert(1, "Ougk", "5001485", "kati"));
+
+		this.companyCertificationSelfService.save(new Cert(1, "makis", true, true, true, true, true, true, true, true, true, true, true, true, true, true));
 		// save a list of Customers
-		this.companyCertificationSelfService.saveAll(Arrays.asList(new Cert(2, "Ougks", "5001485", "kati"), new Cert(3, "Ougkss", "5001485", "kati"),
-				new Cert(4, "Ougksss", "5001485", "kati"), new Cert(5, "Ougkssss", "5001485", "kati")));
+		this.companyCertificationSelfService.saveAll(
+				Arrays.asList(
+						new Cert(1, "makis", true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+						new Cert(1, "takis", true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+						new Cert(1, "lakis", true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+						new Cert(1, "sakis", true, true, true, true, true, true, true, true, true, true, true, true, true, true)
+						));
 		return "Certifications are created";
 	}
 
 	@PostMapping("/create")
-	public String create(@RequestBody Cert cert) {
-		this.companyCertificationSelfService.save(new Cert(cert.getcId(), cert.getcName(), cert.getcTin(), cert.getcTitle()));
-		return "Certification is created";
+	public CertResponseModel create(@RequestBody Cert cert) {
+		this.companyCertificationSelfService.save(
+				new Cert(
+					cert.getCompanyId(), cert.getRegulatedActivity(), cert.getDocument1(), cert.getDocument2(),cert.getDocument3(),
+					cert.getDocument4(),cert.getDocument5(),cert.getDocument6(),cert.getDocument7(),cert.getDocument8(),cert.getDocument9(),
+					cert.getDocument10(),cert.getDocument11(),cert.getDocument12(),cert.getDocument13(),cert.getDocument14())
+				);
+		return new CertResponseModel("Success");
 	}
 
 	@GetMapping("/findall")
@@ -49,7 +61,12 @@ public class CertController {
 		final List<Cert> certs = this.companyCertificationSelfService.findAll();
 		final List<Cert> certRes = new ArrayList<>();
 		for (final Cert cert : certs) {
-			certRes.add(new Cert(cert.getcId(), cert.getcName(), cert.getcTin(), cert.getcTitle()));
+			certRes.add(
+					new Cert(
+						cert.getCompanyId(), cert.getRegulatedActivity(), cert.getDocument1(), cert.getDocument2(),cert.getDocument3(),
+						cert.getDocument4(),cert.getDocument5(),cert.getDocument6(),cert.getDocument7(),cert.getDocument8(),cert.getDocument9(),
+						cert.getDocument10(),cert.getDocument11(),cert.getDocument12(),cert.getDocument13(),cert.getDocument14())
+					);
 		}
 		return certRes;
 	}
