@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CERT")
@@ -14,9 +13,10 @@ public class Cert {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer cId;
+	@Column(name="company_id")
 	private Integer companyId;
-	
-	@Column(name = "regulatedActivity")
+	@Column(name = "regulated_activity")
 	private String regulatedActivity;
 	@Column(name = "document1")
 	private boolean document1;
@@ -92,6 +92,10 @@ public class Cert {
 
 	// Getter Methods
 
+	public Integer getcId() {
+		return this.cId;
+	}
+
 	public Integer getCompanyId() {
 		return this.companyId;
 	}
@@ -157,6 +161,10 @@ public class Cert {
 	}
 
 	// Setter Methods
+
+	public void setcId(Integer cId) {
+		this.cId = cId;
+	}
 
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
