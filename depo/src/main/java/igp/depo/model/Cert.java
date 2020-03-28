@@ -1,22 +1,46 @@
 package igp.depo.model;
 
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "CERT")
-public class Cert {
+public class Cert implements Serializable {
   
+  private static final long serialVersionUID = 6679436979964698781L;
+
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(name = "COMPANYID")
   private Integer companyId;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "FK_FOREAS", nullable = true)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Foreas foreas;
+  
+  
+  @OneToMany(mappedBy ="toCert", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<Document> documents;
   
   @NotBlank
   @Size(min = 3, max = 100)
@@ -69,29 +93,6 @@ public class Cert {
 public Cert() {}
 
 
-public Cert(Integer companyId, @NotBlank @Size(min = 3, max = 100) String regulatedActivity, boolean document1,
-		boolean document2, boolean document3, boolean document4, boolean document5, boolean document6,
-		boolean document7, boolean document8, boolean document9, boolean document10, boolean document11,
-		boolean document12, boolean document13, boolean document14) {
-	this.companyId = companyId;
-	this.regulatedActivity = regulatedActivity;
-	this.document1 = document1;
-	this.document2 = document2;
-	this.document3 = document3;
-	this.document4 = document4;
-	this.document5 = document5;
-	this.document6 = document6;
-	this.document7 = document7;
-	this.document8 = document8;
-	this.document9 = document9;
-	this.document10 = document10;
-	this.document11 = document11;
-	this.document12 = document12;
-	this.document13 = document13;
-	this.document14 = document14;
-}
-
-
 public Integer getCompanyId() {
 	return companyId;
 }
@@ -99,6 +100,32 @@ public Integer getCompanyId() {
 
 public void setCompanyId(Integer companyId) {
 	this.companyId = companyId;
+}
+
+@JsonIgnore
+public int getForea_id(){
+    return foreas.getFid();
+}
+
+@JsonIgnore
+public Foreas getForeas() {
+	return foreas;
+}
+
+
+@JsonIgnore
+public void setForeas(Foreas foreas) {
+	this.foreas = foreas;
+}
+
+
+public Set<Document> getDocuments() {
+	return documents;
+}
+
+
+public void setDocuments(Set<Document> documents) {
+	this.documents = documents;
 }
 
 
@@ -253,88 +280,17 @@ public void setDocument14(boolean document14) {
 
 
 @Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
-	result = prime * result + (document1 ? 1231 : 1237);
-	result = prime * result + (document10 ? 1231 : 1237);
-	result = prime * result + (document11 ? 1231 : 1237);
-	result = prime * result + (document12 ? 1231 : 1237);
-	result = prime * result + (document13 ? 1231 : 1237);
-	result = prime * result + (document14 ? 1231 : 1237);
-	result = prime * result + (document2 ? 1231 : 1237);
-	result = prime * result + (document3 ? 1231 : 1237);
-	result = prime * result + (document4 ? 1231 : 1237);
-	result = prime * result + (document5 ? 1231 : 1237);
-	result = prime * result + (document6 ? 1231 : 1237);
-	result = prime * result + (document7 ? 1231 : 1237);
-	result = prime * result + (document8 ? 1231 : 1237);
-	result = prime * result + (document9 ? 1231 : 1237);
-	result = prime * result + ((regulatedActivity == null) ? 0 : regulatedActivity.hashCode());
-	return result;
-}
-
-
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Cert other = (Cert) obj;
-	if (companyId == null) {
-		if (other.companyId != null)
-			return false;
-	} else if (!companyId.equals(other.companyId))
-		return false;
-	if (document1 != other.document1)
-		return false;
-	if (document10 != other.document10)
-		return false;
-	if (document11 != other.document11)
-		return false;
-	if (document12 != other.document12)
-		return false;
-	if (document13 != other.document13)
-		return false;
-	if (document14 != other.document14)
-		return false;
-	if (document2 != other.document2)
-		return false;
-	if (document3 != other.document3)
-		return false;
-	if (document4 != other.document4)
-		return false;
-	if (document5 != other.document5)
-		return false;
-	if (document6 != other.document6)
-		return false;
-	if (document7 != other.document7)
-		return false;
-	if (document8 != other.document8)
-		return false;
-	if (document9 != other.document9)
-		return false;
-	if (regulatedActivity == null) {
-		if (other.regulatedActivity != null)
-			return false;
-	} else if (!regulatedActivity.equals(other.regulatedActivity))
-		return false;
-	return true;
-}
-
-
-@Override
 public String toString() {
-	return "Cert [companyId=" + companyId + ", regulatedActivity=" + regulatedActivity + ", document1=" + document1
-			+ ", document2=" + document2 + ", document3=" + document3 + ", document4=" + document4 + ", document5="
-			+ document5 + ", document6=" + document6 + ", document7=" + document7 + ", document8=" + document8
-			+ ", document9=" + document9 + ", document10=" + document10 + ", document11=" + document11 + ", document12="
-			+ document12 + ", document13=" + document13 + ", document14=" + document14 + "]";
+	return "Cert [companyId=" + companyId + ", foreas=" + foreas + ", regulatedActivity=" + regulatedActivity
+			+ ", document1=" + document1 + ", document2=" + document2 + ", document3=" + document3 + ", document4="
+			+ document4 + ", document5=" + document5 + ", document6=" + document6 + ", document7=" + document7
+			+ ", document8=" + document8 + ", document9=" + document9 + ", document10=" + document10 + ", document11="
+			+ document11 + ", document12=" + document12 + ", document13=" + document13 + ", document14=" + document14
+			+ "]";
 }
+
+
+
 
 
     

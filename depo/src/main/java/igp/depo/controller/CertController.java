@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import igp.depo.model.Cert;
 import igp.depo.model.CertResponseModel;
+import igp.depo.model.Document;
+import igp.depo.model.Foreas;
 import igp.depo.service.CertService;
+import igp.depo.service.DocumentService;
+import igp.depo.service.ForeasService;
 
 
 @RestController
@@ -26,6 +30,11 @@ public class CertController {
 	@Autowired
 	private CertService certService;
 	
+	@Autowired
+	private ForeasService foreasService;
+	
+	@Autowired
+	private DocumentService documentService;
 	
 	@GetMapping("/")
 	public String index(){
@@ -33,11 +42,6 @@ public class CertController {
 	return "silence is gold";
 	}
 	
-	@GetMapping("/bulkcreate")
-	public CertResponseModel bulkcreate() {
-	this.certService.bulkCreate();
-	return new CertResponseModel("Fake Certifications are created");
-	}
 	
 	@PostMapping("/bulksave")
 	public CertResponseModel saveAll(@RequestBody Cert... cert){
@@ -54,7 +58,7 @@ public class CertController {
 	
 	@RequestMapping("/delete/{id}")
 	public CertResponseModel deleteCert(@PathVariable("id") int id) {
-		this.certService.deleteCert(id);
+	this.certService.deleteCert(id);
 	return new CertResponseModel("Certification succesfully deleted");
 	}
 	
@@ -78,6 +82,50 @@ public class CertController {
 	Optional<Cert> cert = this.certService.findById(id);
 	return cert;
 	}
+	
+	
+	@PostMapping("/newforeas")
+	public CertResponseModel newForeas(@RequestBody Foreas foreas){
+	this.foreasService.save(foreas);
+	return new CertResponseModel("Neos Foreas!");
+	}
 
+	
+    @RequestMapping(value = "/{foreasId}/createCert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Cert createCert(@PathVariable(value = "foreasId") Integer foreasId, @RequestBody Cert cert) {
+        return this.certService.createCert(foreasId, cert);
+    }
+    
+    @GetMapping("/findallforeis")
+	public List<Foreas> findAllForeis(){
+	List<Foreas> foreis = this.foreasService.findAll();
+	return foreis;
+	}
+    
+    
+	
+    @PostMapping("/newdoc")
+	public CertResponseModel newDoc(@RequestBody Document document){
+	this.documentService.save(document);
+	return new CertResponseModel("Neo Document!");
+	}
+    
+    @RequestMapping(value = "/{certId}/createdoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Document createDoc(@PathVariable(value = "certId") Integer certId, @RequestBody Document document) {
+        return this.documentService.createDoc(certId, document);
+    }
+    
+	@GetMapping("/bulkcreate")
+	public CertResponseModel bulkcreate() {
+	this.documentService.bulkCreate();
+	return new CertResponseModel("Fake Documents are created");
+	}
+
+	
+	@GetMapping("/findalldocs")
+	public List<Document> findAllDocs(){
+	List<Document> docs = this.documentService.findAll();
+	return docs;
+	}
 
 }
