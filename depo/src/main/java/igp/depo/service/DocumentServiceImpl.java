@@ -48,6 +48,37 @@ public class DocumentServiceImpl implements DocumentService{
 	
 	@Override
 	@Transactional
+	  public Document bindDoc(Long docId, Integer certId) {
+	        
+		Set<Document> docs = new HashSet<>();
+		
+	        Optional<Cert> certById = this.certDao.findById(certId);
+	        Optional<Document> docById = this.documentDao.findById(docId);
+	       
+	        Cert cert = certById.get();
+	        Document doc = docById.get();
+	        
+	        if(doc.getToCert() != null) {
+	        	// Defensive copy
+	         Document doc1 = new Document(doc.getDocName(),doc.isValid());
+		        doc1.setToCert(cert);
+		        docs.add(this.documentDao.save(doc1));
+		        cert.setDocuments(docs);
+		        return doc1;
+	        }
+	     
+	        //doc -> cert
+	        doc.setToCert(cert);
+	        docs.add(this.documentDao.save(doc));
+	        //foreas -> cert
+	        cert.setDocuments(docs);
+
+	        return doc;
+	    }
+	
+	
+	@Override
+	@Transactional
 	public List<Document> findAll(){
 		List<Document> docs = this.documentDao.findAll();
 		List<Document> docRes = new ArrayList<>();

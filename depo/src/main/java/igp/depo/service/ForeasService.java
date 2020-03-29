@@ -9,5 +9,5 @@ public interface ForeasService {
 	
 	List<Foreas> findAll();
 	Optional<Foreas> findById(Integer id);
-	Foreas save(Foreas foreas);
+	boolean save(Foreas foreas);
 }

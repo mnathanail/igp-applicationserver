@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import igp.depo.model.Cert;
+import igp.depo.model.Document;
 import igp.depo.model.Foreas;
 import igp.depo.repo.CertDao;
+import igp.depo.repo.DocumentDao;
 import igp.depo.repo.ForeasDao;
 
 @Service
@@ -23,6 +25,9 @@ public class CertServiceImpl implements CertService {
 	
 	@Autowired
 	ForeasDao foreasDao;
+	
+	@Autowired
+	DocumentDao documentDao;
 	
 	
 	@Override
@@ -49,10 +54,45 @@ public class CertServiceImpl implements CertService {
 	        return cert;
 	    }
 	
+	
+	@Override
+	@Transactional
+	  public Cert bindCert(Integer certId, Integer foreasId) {
+	        
+		Set<Cert> certs = new HashSet<>();
+		
+	        Optional<Cert> certById = this.certDao.findById(certId);
+	        Optional<Foreas> foreasById = this.foreasDao.findById(foreasId);
+	       
+	        Foreas foreas = foreasById.get();
+	        Cert cert = certById.get();
+	        
+	        
+	        if(cert.getForeas() != null) {
+	        	
+	        	// Defensive copy
+	        	Set<Cert> certs1 = new HashSet<>();
+	        	Set<Document> docs = new HashSet<>();
+	        	docs.addAll(cert.getDocuments());
+	        	Cert cert1 = new Cert(cert.getDocuments(),cert.getRegulatedActivity());
+	        	cert1.setForeas(foreas);
+	        	cert1.setDocuments(docs);
+	        	certs1.add(this.certDao.save(cert1));
+	        	foreas.setCertifications(certs);
+		        return cert1;
+	        }
+	     
+	        cert.setForeas(foreas);
+	        certs.add(this.certDao.save(cert));
+	        foreas.setCertifications(certs);
+
+	        return cert;
+	    }
+	
 	@Override
 	@Transactional
 	public void updateCert(Cert cert) {
-		this.certDao.updateCert(cert.getCompanyId(),cert.getRegulatedActivity(),cert.isDocument1(),cert.isDocument2(),cert.isDocument3(),cert.isDocument4(),cert.isDocument5(),cert.isDocument6(),cert.isDocument7(),cert.isDocument8(),cert.isDocument9(),cert.isDocument10(),cert.isDocument11(),cert.isDocument12(),cert.isDocument13(),cert.isDocument14());
+		this.certDao.updateCert(cert.getCompanyId(),cert.getRegulatedActivity());
 	}
 	
 	@Override
@@ -79,17 +119,6 @@ public class CertServiceImpl implements CertService {
 		for (Cert cert : certs) {
 		certDao.save(cert);
 		}
-	}
-
-	@Override
-	@Transactional
-	public void bulkCreate(){
-		
-		/*this.certDao.saveAll(Arrays.asList(
-	            new Cert(2,"Paidotopoi",true,false,true,true,true,true,false,true,true,false,true,true,true,true)
-              , new Cert(3,"Klinikh",true,false,true,true,true,true,false,true,true,false,true,true,true,true)
-              , new Cert(4,"Xenodoxeio",true,false,true,true,true,true,false,true,true,false,true,true,true,true)
-              ));*/
 	}
 	
 	@Override

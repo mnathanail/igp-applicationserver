@@ -3,8 +3,11 @@ package igp.depo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,15 +86,22 @@ public class CertController {
 	return cert;
 	}
 	
+	@RequestMapping(value = "bindcert/{certId}/{foreasId}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Cert createDoc(@PathVariable(value = "certId") Integer certId, @PathVariable(value = "foreasId") Integer foreasId) {
+        return this.certService.bindCert(certId, foreasId);
+    }
 	
 	@PostMapping("/newforeas")
-	public CertResponseModel newForeas(@RequestBody Foreas foreas){
-	this.foreasService.save(foreas);
+	public CertResponseModel newForeas(@Valid @RequestBody Foreas foreas,  final BindingResult bindingResult){
+		
+		if(bindingResult.hasErrors() || this.foreasService.save(foreas)==false )
+			return new CertResponseModel("Kati phge strava :(");
+			
 	return new CertResponseModel("Neos Foreas!");
 	}
 
 	
-    @RequestMapping(value = "/{foreasId}/createCert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{foreasId}/createcert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cert createCert(@PathVariable(value = "foreasId") Integer foreasId, @RequestBody Cert cert) {
         return this.certService.createCert(foreasId, cert);
     }
@@ -113,6 +123,11 @@ public class CertController {
     @RequestMapping(value = "/{certId}/createdoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Document createDoc(@PathVariable(value = "certId") Integer certId, @RequestBody Document document) {
         return this.documentService.createDoc(certId, document);
+    }
+    
+    @RequestMapping(value = "binddoc/{docId}/{certId}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Document bindDoc(@PathVariable(value = "docId") Long docId, @PathVariable(value = "certId") Integer certId) {
+        return this.documentService.bindDoc(docId, certId);
     }
     
 	@GetMapping("/bulkcreate")

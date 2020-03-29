@@ -21,5 +21,7 @@ public interface DocumentService {
 	//public void deleteDoc(long id);
 	
 	Document createDoc(Integer certId, Document document);
+	
+	Document bindDoc(Long docId, Integer certId);
 
 }
