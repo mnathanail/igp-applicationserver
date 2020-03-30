@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import igp.depo.model.CertResponseModel;
@@ -22,7 +23,7 @@ public class UserController {
 	private ForeasService foreasService;
 	
 	
-	@PostMapping("/loginforeas")
+	@RequestMapping(value = "/loginforeas", method = { RequestMethod.GET, RequestMethod.POST })
 	public CertResponseModel foreasLogin(@RequestBody Foreas foreas){
 	return foreasService.foreasLogin(foreas) ? new CertResponseModel("Kalosorises ") : new CertResponseModel("Lanthasmena stoixeia ");  
 	}
