@@ -113,6 +113,7 @@ public class CertController {
 	}
     
     
+    
 	
     @PostMapping("/newdoc")
 	public CertResponseModel newDoc(@RequestBody Document document){
@@ -136,7 +137,6 @@ public class CertController {
 	return new CertResponseModel("Fake Documents are created");
 	}
 
-	
 	@GetMapping("/findalldocs")
 	public List<Document> findAllDocs(){
 	List<Document> docs = this.documentService.findAll();

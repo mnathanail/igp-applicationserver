@@ -84,14 +84,39 @@ public class Foreas implements Serializable{
 	@OneToMany(mappedBy = "foreas", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<Cert> certifications;
 	
+	private boolean active;
+    private String roles;
+	
 	
 	public Foreas() {}
+	
+	
+
+	public Foreas(@NotBlank @Size(min = 4, max = 30) String username,
+			@NotBlank @Size(min = 8, max = 30) String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+
+
+	public Foreas(@NotBlank @Size(min = 4, max = 30) String username,
+			@NotBlank @Size(min = 8, max = 30) String password, boolean active, String roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.active = active;
+		this.roles = roles;
+	}
+
+
 
 	public Foreas(@NotBlank @Size(min = 2, max = 30) String name, @NotBlank @Size(min = 2, max = 30) String surname,
 			@NotBlank String distinctiveTitle, @NotBlank @Size(min = 9, max = 9) String afm, @NotBlank String doy,
 			@NotBlank String gemh, @NotBlank String address, @NotBlank String phoneNumber, String fax,
 			@NotBlank String email, @NotBlank String contactMember, @NotBlank @Size(min = 4, max = 30) String username,
-			@NotBlank @Size(min = 8, max = 30) String password) {
+			@NotBlank @Size(min = 8, max = 30) String password, boolean active, String roles) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -106,6 +131,8 @@ public class Foreas implements Serializable{
 		this.contactMember = contactMember;
 		this.username = username;
 		this.password = password;
+		this.active = active;
+		this.roles = roles;
 	}
 
 
@@ -229,6 +256,24 @@ public class Foreas implements Serializable{
 	public void setCertifications(Set<Cert> certifications) {
 		this.certifications = certifications;
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+	
+	
 
 	
 

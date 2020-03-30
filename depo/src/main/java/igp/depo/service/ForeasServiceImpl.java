@@ -20,13 +20,42 @@ public class ForeasServiceImpl implements ForeasService{
 
 	@Autowired
 	Validator validate;
+	
+	@Override
+	@Transactional
+	public boolean foreasLogin(Foreas foreas) {
+		
+		
+		
+		try {
+			Optional<Foreas> f = foreasDao.findByUsername(foreas.getUsername());
+			Foreas f1 = f.get();
+			if(f1 == null)
+				return false;
+			if(!f1.getPassword().equals(foreas.getPassword()))
+				return false;
+		}catch(Exception e) {
+			return false;
+		}
+	        return true ;
+	
+	}
+	
+	
+	@Override
+	@Transactional
+	public Optional<Foreas> findByUsername(String username){
+		return this.foreasDao.findByUsername(username);
+	}
 
 	@Override
+	@Transactional
 	public List<Foreas> findAll() {
 		return this.foreasDao.findAll();
 	}
 
 	@Override
+	@Transactional
 	public boolean save(Foreas foreas) {
 		
 		if(!( validate.validateEmail(foreas.getEmail()) && validate.isNumeric(foreas.getAfm(),foreas.getFax(),foreas.getPhoneNumber())))
