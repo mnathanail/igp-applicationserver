@@ -47,12 +47,12 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/loginforeas", method = RequestMethod.GET)
-	public ResponseEntity<String> foreasLogin(@RequestBody ForeasModel foreas) {
+	public ResponseEntity<ForeasModel> foreasLogin(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword())!=null) {
-			return new ResponseEntity<String>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()).toString(),HttpStatus.OK);
+			return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()),HttpStatus.OK);
 		}
-	    return new ResponseEntity<String>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()).toString(), HttpStatus.BAD_REQUEST);
+	    return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()), HttpStatus.BAD_REQUEST);
 	}
 	
 	
@@ -69,18 +69,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/{foreasId}/aitisis", method = RequestMethod.GET)
-	public ResponseEntity<String> getAitisisForea(@PathVariable("foreasId") Integer foreasId){
-		return new ResponseEntity<String>(aitisiService.fetchAitisis(foreasId).toString(),HttpStatus.OK);
+	public ResponseEntity<Set<AitisiModel>> getAitisisForea(@PathVariable("foreasId") Integer foreasId){
+		return new ResponseEntity<Set<AitisiModel>>(aitisiService.fetchAitisis(foreasId),HttpStatus.OK);
 	}
 
 	
 	@RequestMapping(value = "/loginusername", method = RequestMethod.GET)
-	public ResponseEntity<String> foreasUsername(@RequestBody ForeasModel foreas) {
+	public ForeasModel foreasUsername(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.findByUsername(foreas.getUsername())!=null) {
-			return new ResponseEntity<String>(foreasService.findByUsername(foreas.getUsername()).toString(),HttpStatus.OK);
+			return foreasService.findByUsername(foreas.getUsername());
 		}
-		return new ResponseEntity<String>(foreasService.findByUsername(foreas.getUsername()).toString(),HttpStatus.BAD_REQUEST);
+	    return foreasService.findByUsername(foreas.getUsername());
 	}
 	
 }
