@@ -56,7 +56,8 @@ public class UserController {
 	}
 	
 	
-	@PostMapping("/{foreasId}/create")
+	//@PostMapping("/{foreasId}/create")
+	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.GET)
 	public ResponseEntity<String> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
 		
 		if(result.hasErrors() || this.aitisiService.createAitisi(foreasId,aitisi)==null ) {
