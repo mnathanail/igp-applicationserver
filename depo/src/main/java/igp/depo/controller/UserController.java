@@ -46,7 +46,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginforeas", method = RequestMethod.GET)
 	public ResponseEntity<ForeasModel> foreasLogin(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword())!=null) {
@@ -74,13 +74,13 @@ public class UserController {
 	}
 
 	
-	@RequestMapping(value = "/loginusername", method = RequestMethod.POST)
-	public ResponseEntity<ForeasModel> foreasUsername(@RequestBody ForeasModel foreas) {
+	@RequestMapping(value = "/loginusername", method = RequestMethod.GET)
+	public ForeasModel foreasUsername(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.findByUsername(foreas.getUsername())!=null) {
-			return new ResponseEntity<ForeasModel>(foreasService.findByUsername(foreas.getUsername()),HttpStatus.OK);
+			return foreasService.findByUsername(foreas.getUsername());
 		}
-	    return new ResponseEntity<ForeasModel>(foreasService.findByUsername(foreas.getUsername()), HttpStatus.BAD_REQUEST);
+	    return foreasService.findByUsername(foreas.getUsername());
 	}
 	
 }
