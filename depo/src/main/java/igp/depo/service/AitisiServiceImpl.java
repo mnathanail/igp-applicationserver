@@ -44,5 +44,12 @@ public class AitisiServiceImpl implements AitisiService {
 	    return aitisi;
 	    }
 	
+	@Override
+	@Transactional
+	public Set<AitisiModel> fetchAitisis(Integer foreasId){
+		
+		return this.foreasDao.findById(foreasId).get().getAitisi();
+		
+	}
 
 }

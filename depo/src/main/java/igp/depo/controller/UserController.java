@@ -1,6 +1,8 @@
 package igp.depo.controller;
 
 
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,19 @@ public class UserController {
 	return new ResponseEntity<String>("Epituxhmenh dimiourgia!",HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/{foreasId}/aitisis", method = RequestMethod.GET)
+	public ResponseEntity<Set<AitisiModel>> getAitisisForea(@PathVariable("foreasId") Integer foreasId){
+		return new ResponseEntity<Set<AitisiModel>>(aitisiService.fetchAitisis(foreasId),HttpStatus.OK);
+	}
 
-
+	
+	@RequestMapping(value = "/loginusername", method = RequestMethod.POST)
+	public ResponseEntity<ForeasModel> foreasUsername(@RequestBody ForeasModel foreas) {
+		
+		if(foreasService.findByUsername(foreas.getUsername())!=null) {
+			return new ResponseEntity<ForeasModel>(foreasService.findByUsername(foreas.getUsername()),HttpStatus.OK);
+		}
+	    return new ResponseEntity<ForeasModel>(foreasService.findByUsername(foreas.getUsername()), HttpStatus.BAD_REQUEST);
+	}
+	
 }
