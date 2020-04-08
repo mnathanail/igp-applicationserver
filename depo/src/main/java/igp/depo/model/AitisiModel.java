@@ -42,60 +42,60 @@ public class AitisiModel implements Serializable {
 	  private String regulatedActivity;
 	  
 	
-	  @Column(name = "DOC1")
-	  private boolean docname1;
+	  @Column(name = "DOCUMENT1")
+	  private boolean document1;
 	  
 	 
-	  @Column(name = "DOC2")
-	  private boolean docname2;
+	  @Column(name = "DOCUMENT2")
+	  private boolean document2;
 	  
 	
-	  @Column(name = "DOC3")
-	  private boolean docname3;
+	  @Column(name = "DOCUMENT3")
+	  private boolean document3;
 	  
 	
-	  @Column(name = "DOC4")
-	  private boolean docname4;
+	  @Column(name = "DOCUMENT4")
+	  private boolean document4;
 	  
 	
-	  @Column(name = "DOC5")
-	  private boolean docname5;
+	  @Column(name = "DOCUMENT5")
+	  private boolean document5;
 	  
 	
-	  @Column(name = "DOC6")
-	  private boolean docname6;
+	  @Column(name = "DOCUMENT6")
+	  private boolean document6;
 	  
 	
-	  @Column(name = "DOC7")
-	  private boolean docname7;
+	  @Column(name = "DOCUMENT7")
+	  private boolean document7;
 	  
 	
-	  @Column(name = "DOC8")
-	  private boolean docname8;
+	  @Column(name = "DOCUMENT8")
+	  private boolean document8;
 	  
 	
-	  @Column(name = "DOC9")
-	  private boolean docname9;
+	  @Column(name = "DOCUMENT9")
+	  private boolean document9;
 	  
 	
-	  @Column(name = "DOC10")
-	  private boolean docname10;
+	  @Column(name = "DOCUMENT10")
+	  private boolean document10;
 	  
 	
-	  @Column(name = "DOC11")
-	  private boolean docname11;
+	  @Column(name = "DOCUMENT11")
+	  private boolean document11;
 	  
 	
-	  @Column(name = "DOC12")
-	  private boolean docname12;
+	  @Column(name = "DOCUMENT12")
+	  private boolean document12;
 	  
 	
-	  @Column(name = "DOC13")
-	  private boolean docname13;
+	  @Column(name = "DOCUMENT13")
+	  private boolean document13;
 	  
 	
-	  @Column(name = "DOC14")
-	  private boolean docname14;
+	  @Column(name = "DOCUMENT14")
+	  private boolean document14;
 	  
 	  @Column(name = "DATE", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	  private LocalDateTime submition_date = LocalDateTime.now();
@@ -141,143 +141,146 @@ public class AitisiModel implements Serializable {
 	}
 
 
-	public boolean isDocname1() {
-		return docname1;
+	
+
+
+	public boolean isDocument1() {
+		return document1;
 	}
 
 
-	public void setDocname1(boolean docname1) {
-		this.docname1 = docname1;
+	public void setDocument1(boolean document1) {
+		this.document1 = document1;
 	}
 
 
-	public boolean isDocname2() {
-		return docname2;
+	public boolean isDocument2() {
+		return document2;
 	}
 
 
-	public void setDocname2(boolean docname2) {
-		this.docname2 = docname2;
+	public void setDocument2(boolean document2) {
+		this.document2 = document2;
 	}
 
 
-	public boolean isDocname3() {
-		return docname3;
+	public boolean isDocument3() {
+		return document3;
 	}
 
 
-	public void setDocname3(boolean docname3) {
-		this.docname3 = docname3;
+	public void setDocument3(boolean document3) {
+		this.document3 = document3;
 	}
 
 
-	public boolean isDocname4() {
-		return docname4;
+	public boolean isDocument4() {
+		return document4;
 	}
 
 
-	public void setDocname4(boolean docname4) {
-		this.docname4 = docname4;
+	public void setDocument4(boolean document4) {
+		this.document4 = document4;
 	}
 
 
-	public boolean isDocname5() {
-		return docname5;
+	public boolean isDocument5() {
+		return document5;
 	}
 
 
-	public void setDocname5(boolean docname5) {
-		this.docname5 = docname5;
+	public void setDocument5(boolean document5) {
+		this.document5 = document5;
 	}
 
 
-	public boolean isDocname6() {
-		return docname6;
+	public boolean isDocument6() {
+		return document6;
 	}
 
 
-	public void setDocname6(boolean docname6) {
-		this.docname6 = docname6;
+	public void setDocument6(boolean document6) {
+		this.document6 = document6;
 	}
 
 
-	public boolean isDocname7() {
-		return docname7;
+	public boolean isDocument7() {
+		return document7;
 	}
 
 
-	public void setDocname7(boolean docname7) {
-		this.docname7 = docname7;
+	public void setDocument7(boolean document7) {
+		this.document7 = document7;
 	}
 
 
-	public boolean isDocname8() {
-		return docname8;
+	public boolean isDocument8() {
+		return document8;
 	}
 
 
-	public void setDocname8(boolean docname8) {
-		this.docname8 = docname8;
+	public void setDocument8(boolean document8) {
+		this.document8 = document8;
 	}
 
 
-	public boolean isDocname9() {
-		return docname9;
+	public boolean isDocument9() {
+		return document9;
 	}
 
 
-	public void setDocname9(boolean docname9) {
-		this.docname9 = docname9;
+	public void setDocument9(boolean document9) {
+		this.document9 = document9;
 	}
 
 
-	public boolean isDocname10() {
-		return docname10;
+	public boolean isDocument10() {
+		return document10;
 	}
 
 
-	public void setDocname10(boolean docname10) {
-		this.docname10 = docname10;
+	public void setDocument10(boolean document10) {
+		this.document10 = document10;
 	}
 
 
-	public boolean isDocname11() {
-		return docname11;
+	public boolean isDocument11() {
+		return document11;
 	}
 
 
-	public void setDocname11(boolean docname11) {
-		this.docname11 = docname11;
+	public void setDocument11(boolean document11) {
+		this.document11 = document11;
 	}
 
 
-	public boolean isDocname12() {
-		return docname12;
+	public boolean isDocument12() {
+		return document12;
 	}
 
 
-	public void setDocname12(boolean docname12) {
-		this.docname12 = docname12;
+	public void setDocument12(boolean document12) {
+		this.document12 = document12;
 	}
 
 
-	public boolean isDocname13() {
-		return docname13;
+	public boolean isDocument13() {
+		return document13;
 	}
 
 
-	public void setDocname13(boolean docname13) {
-		this.docname13 = docname13;
+	public void setDocument13(boolean document13) {
+		this.document13 = document13;
 	}
 
 
-	public boolean isDocname14() {
-		return docname14;
+	public boolean isDocument14() {
+		return document14;
 	}
 
 
-	public void setDocname14(boolean docname14) {
-		this.docname14 = docname14;
+	public void setDocument14(boolean document14) {
+		this.document14 = document14;
 	}
 
 

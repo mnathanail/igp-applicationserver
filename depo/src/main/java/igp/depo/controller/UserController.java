@@ -46,7 +46,8 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/loginforeas", method = RequestMethod.GET)
+	//@RequestMapping(value = "/loginforeas", method = RequestMethod.GET)
+	@PostMapping("/loginforeas")
 	public ResponseEntity<ForeasModel> foreasLogin(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword())!=null) {
@@ -57,7 +58,7 @@ public class UserController {
 	
 	
 	//@PostMapping("/{foreasId}/create")
-	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)
 	public ResponseEntity<String> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
 		
 		if(result.hasErrors() || this.aitisiService.createAitisi(foreasId,aitisi)==null ) {
@@ -74,7 +75,7 @@ public class UserController {
 	}
 
 	
-	@RequestMapping(value = "/loginusername", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginusername", method = RequestMethod.POST)
 	public ForeasModel foreasUsername(@RequestBody ForeasModel foreas) {
 		
 		if(foreasService.findByUsername(foreas.getUsername())!=null) {
