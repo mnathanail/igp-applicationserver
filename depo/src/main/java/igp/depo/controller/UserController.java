@@ -43,7 +43,7 @@ public class UserController {
         }
 	this.foreasService.save(foreas);	
 	return new ResponseEntity<String>("Kalosorises",HttpStatus.OK);
-	}*/
+	}
 	
 	
 	@PostMapping("/loginforeas")
@@ -53,7 +53,7 @@ public class UserController {
 			return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()),HttpStatus.OK);
 		}
 	    return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()), HttpStatus.BAD_REQUEST);
-	}
+	}*/
 	
 
 	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)

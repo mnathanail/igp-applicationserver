@@ -35,8 +35,9 @@ public class SecureLayerController {
 
 	@Autowired
 	private ForeasDetailsService userDetailsService;
+	
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
