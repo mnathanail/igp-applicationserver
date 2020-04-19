@@ -35,7 +35,7 @@ public class UserController {
 	return "silence is gold";
 	}
 	
-	@PostMapping("/newforeas")
+	/*@PostMapping("/newforeas")
 	public ResponseEntity<String> newForeas(@Valid @RequestBody ForeasModel foreas, BindingResult result){
 		
 		if(result.hasErrors()) {
@@ -43,10 +43,9 @@ public class UserController {
         }
 	this.foreasService.save(foreas);	
 	return new ResponseEntity<String>("Kalosorises",HttpStatus.OK);
-	}
+	}*/
 	
 	
-	//@RequestMapping(value = "/loginforeas", method = RequestMethod.GET)
 	@PostMapping("/loginforeas")
 	public ResponseEntity<ForeasModel> foreasLogin(@RequestBody ForeasModel foreas) {
 		
@@ -56,8 +55,7 @@ public class UserController {
 	    return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()), HttpStatus.BAD_REQUEST);
 	}
 	
-	
-	//@PostMapping("/{foreasId}/create")
+
 	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)
 	public ResponseEntity<String> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
 		

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS foreas
     fax           varchar(255),
     gemh          varchar(255),
     name          varchar(30),
-    password      varchar(30),
+    password      varchar(10485760),
     phone         varchar(255),
     roles         varchar(255),
     surname       varchar(30),

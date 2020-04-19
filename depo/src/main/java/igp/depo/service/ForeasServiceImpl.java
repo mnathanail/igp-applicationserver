@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import igp.depo.model.ForeasModel;
-import igp.depo.model.StatusKey;
 import igp.depo.repo.ForeasDao;
-import igp.depo.utils.StatusEnum;
 
 
 @Service
@@ -48,12 +46,12 @@ public class ForeasServiceImpl implements ForeasService{
 		return this.foreasDao.findAll();
 	}
 
-	@Override
+	/*@Override
 	@Transactional
 	public void save(ForeasModel foreas) {
 		foreas.setStatus(new StatusKey(StatusEnum.PENDING));
 		this.foreasDao.save(foreas);
-	}
+	}*/
 	
 	@Override
 	@Transactional

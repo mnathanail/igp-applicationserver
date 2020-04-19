@@ -86,8 +86,7 @@ public class ForeasModel implements Serializable{
 	private String username;
 	
 	@NotBlank
-	@Size(min = 8, max = 30)
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD", columnDefinition="text", length=10485760)
 	private String password;
 	
 	@OneToMany(mappedBy = "foreas", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -95,7 +94,7 @@ public class ForeasModel implements Serializable{
 	
 	private boolean active = true;
 	
-    private String roles = "USER";
+    private String roles = "ROLE_USER";
     
     @Embedded
     private StatusKey status;
