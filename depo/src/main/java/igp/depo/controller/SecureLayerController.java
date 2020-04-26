@@ -30,24 +30,23 @@ public class SecureLayerController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	/*@Autowired
+	private JwtTokenUtil jwtTokenUtil;*/
 
 	@Autowired
 	private ForeasDetailsService userDetailsService;
 	
 
 	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public UserDetails createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+		//UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		
-		return ResponseEntity.ok(new JwtResponse(token));
+		//final String token = jwtTokenUtil.generateToken(userDetails);
+		return userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		//return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
 
