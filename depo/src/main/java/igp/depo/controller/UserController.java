@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,27 +33,6 @@ public class UserController {
 	public String index(){
 	return "silence is gold";
 	}
-	
-	/*@PostMapping("/newforeas")
-	public ResponseEntity<String> newForeas(@Valid @RequestBody ForeasModel foreas, BindingResult result){
-		
-		if(result.hasErrors()) {
-			return new ResponseEntity<String>("Kati phge strava",HttpStatus.BAD_REQUEST);
-        }
-	this.foreasService.save(foreas);	
-	return new ResponseEntity<String>("Kalosorises",HttpStatus.OK);
-	}
-	
-	
-	@PostMapping("/loginforeas")
-	public ResponseEntity<ForeasModel> foreasLogin(@RequestBody ForeasModel foreas) {
-		
-		if(foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword())!=null) {
-			return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()),HttpStatus.OK);
-		}
-	    return new ResponseEntity<ForeasModel>(this.foreasService.foreasLogin(foreas.getUsername(), foreas.getPassword()), HttpStatus.BAD_REQUEST);
-	}*/
-	
 
 	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)
 	public ResponseEntity<String> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
@@ -67,9 +45,13 @@ public class UserController {
 	return new ResponseEntity<String>("Epituxhmenh dimiourgia!",HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/{foreasId}/aitisis", method = RequestMethod.GET)
-	public ResponseEntity<Set<AitisiModel>> getAitisisForea(@PathVariable("foreasId") Integer foreasId){
-		return new ResponseEntity<Set<AitisiModel>>(aitisiService.fetchAitisis(foreasId),HttpStatus.OK);
+	@RequestMapping(value = "/aitisis/{foreasId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getAitisisForea(@PathVariable("foreasId") Integer foreasId){
+		
+		if(this.aitisiService.fetchAitisis(foreasId).isEmpty())
+			return new ResponseEntity<String>("Δεν βρέθηκαν αιτήσεις για τον φορέα",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<Set<AitisiModel>>(this.aitisiService.fetchAitisis(foreasId),HttpStatus.OK);
 	}
 
 	
