@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import igp.depo.model.ForeasModel;
-import igp.depo.securityconfig.JwtRequest;
-import igp.depo.securityconfig.JwtResponse;
-import igp.depo.securityconfig.JwtTokenUtil;
 import igp.depo.service.ForeasDetailsService;
 
 @RestController
@@ -30,25 +26,22 @@ public class SecureLayerController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	/*@Autowired
-	private JwtTokenUtil jwtTokenUtil;*/
-
 	@Autowired
 	private ForeasDetailsService userDetailsService;
 	
-
+	
 	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
-	public UserDetails createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-		//UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-
-		//final String token = jwtTokenUtil.generateToken(userDetails);
-		return userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-		//return ResponseEntity.ok(new JwtResponse(token));
+	public ResponseEntity<?> foreasUsername(@RequestBody ForeasModel foreas) throws Exception {
+		
+		authenticate(foreas.getUsername(), foreas.getPassword());
+		
+		if(userDetailsService.loadUserByUsername(foreas.getUsername())!=null) {
+			return ResponseEntity.ok(userDetailsService.loadUserByUsername(foreas.getUsername()));
+		}
+	    return new ResponseEntity<String>("Ο χρήστης δεν βρέθηκε..",HttpStatus.BAD_REQUEST);
 	}
 	
+
 
 	@PostMapping("/newforeas")
 	public ResponseEntity<?> newForeas(@Valid @RequestBody ForeasModel foreas, BindingResult result){
@@ -59,6 +52,7 @@ public class SecureLayerController {
 		return ResponseEntity.ok(userDetailsService.save(foreas));
 	}
 
+	
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
