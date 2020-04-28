@@ -100,6 +100,9 @@ public class AitisiModel implements Serializable {
 	  @Column(name = "DATE", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	  private LocalDateTime submition_date = LocalDateTime.now();
 	  
+	  @Column(name = "COMPANY")
+	  private String foreasTitle;
+	  
 	  @Embedded
 	  private StatusKey status;
 
@@ -292,5 +295,27 @@ public class AitisiModel implements Serializable {
 	public void setStatus(StatusKey status) {
 		this.status = status;
 	}
+
+
+	public LocalDateTime getSubmition_date() {
+		return submition_date;
+	}
+
+
+	public void setSubmition_date(LocalDateTime submition_date) {
+		this.submition_date = submition_date;
+	}
+
+
+	public String getForeasTitle() {
+		return this.foreas.getDistinctiveTitle();
+	}
+
+
+	public void setForeasTitle(String foreasTitle) {
+		this.foreasTitle = foreasTitle;
+	}
+	
+	
 
 }

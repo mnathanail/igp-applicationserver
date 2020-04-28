@@ -67,7 +67,6 @@ public class ForeasModel implements Serializable{
 	private String phoneNumber;
 	
 	@Column(name = "FAX")
-	@NumberValidation(message="Incorrect Number")
 	private String fax;
 	
 	@NotBlank

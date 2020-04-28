@@ -36,6 +36,7 @@ public class AitisiServiceImpl implements AitisiService {
 	    ForeasModel foreas = byId.get();
 	    aitisi.setStatus(new StatusKey(StatusEnum.PENDING));
 	    aitisi.setForeas(foreas);
+	    aitisi.setForeasTitle(foreas.getDistinctiveTitle());
 	    aitisis.add(this.aitisiDao.save(aitisi));
 	    foreas.setAitisi(aitisis);
 		}
