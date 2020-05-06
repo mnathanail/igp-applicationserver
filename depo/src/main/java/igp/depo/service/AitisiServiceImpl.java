@@ -1,5 +1,7 @@
 package igp.depo.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -52,5 +54,36 @@ public class AitisiServiceImpl implements AitisiService {
 		return this.foreasDao.findById(foreasId).get().getAitisi();
 		
 	}
+	
+	
+	@Override
+	@Transactional
+	public AitisiModel updateAitisi(Integer aitisiId, StatusKey status) {
+		
+		 if (this.aitisiDao.findById(aitisiId).isPresent()){
+			 AitisiModel existingAitisi = this.aitisiDao.findById(aitisiId).get();
+
+			  
+			 switch(status.getStatus()) {
+			 case ACCEPTED:
+				 existingAitisi.setStatus(new StatusKey(StatusEnum.ACCEPTED));
+				 existingAitisi.setSubmition_date_expiration(LocalDateTime.now( ZoneId.of( "Europe/Athens" )).plusYears(1));
+				 break;
+			 case REJECTED:
+				 existingAitisi.setStatus(new StatusKey(StatusEnum.REJECTED));
+				 existingAitisi.setSubmition_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
+				 break;
+			 default:
+				 existingAitisi.setStatus(new StatusKey(StatusEnum.PENDING));
+			 }
+			 
+			   AitisiModel updatedAitisi = aitisiDao.save(existingAitisi);
+
+	            return updatedAitisi;
+	        }else{
+	            return null;
+	        }
+	}
+	
 
 }

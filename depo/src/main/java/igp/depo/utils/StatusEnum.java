@@ -1,6 +1,8 @@
 package igp.depo.utils;
 
-public enum StatusEnum {
+import java.io.Serializable;
+
+public enum StatusEnum implements Serializable{
 
 	PENDING("PENDING"), ACCEPTED("ACCEPTED"), REJECTED("REJECTED");
 	 

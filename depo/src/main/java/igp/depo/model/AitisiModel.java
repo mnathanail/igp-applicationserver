@@ -2,6 +2,8 @@ package igp.depo.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -97,8 +99,11 @@ public class AitisiModel implements Serializable {
 	  @Column(name = "DOCUMENT14")
 	  private boolean document14;
 	  
-	  @Column(name = "DATE", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	  private LocalDateTime submition_date = LocalDateTime.now();
+	  @Column(name = "DATE", nullable = false, updatable = true, insertable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	  private LocalDateTime submition_date = LocalDateTime.now(ZoneId.of( "Europe/Athens" ));
+	  
+	  @Column(name = "EXPIRATIONDATE", nullable = true, updatable = true, insertable = true, columnDefinition = "TIMESTAMP")
+	  private LocalDateTime submition_date_expiration;
 	  
 	  @Column(name = "COMPANY")
 	  private String foreasTitle;
@@ -304,6 +309,16 @@ public class AitisiModel implements Serializable {
 
 	public void setSubmition_date(LocalDateTime submition_date) {
 		this.submition_date = submition_date;
+	}
+
+
+	public LocalDateTime getSubmition_date_expiration() {
+		return submition_date_expiration;
+	}
+
+
+	public void setSubmition_date_expiration(LocalDateTime submition_date_expiration) {
+		this.submition_date_expiration = submition_date_expiration;
 	}
 
 

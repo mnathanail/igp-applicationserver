@@ -1,7 +1,5 @@
 package igp.depo.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +28,6 @@ public class SecureLayerController {
 	
 	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
 	public ResponseEntity<?> foreasUsername(@RequestBody ForeasModel foreas) throws Exception {
-		
 		authenticate(foreas.getUsername(), foreas.getPassword());
 		
 		if(userDetailsService.loadUserByUsername(foreas.getUsername())!=null) {
@@ -41,7 +36,7 @@ public class SecureLayerController {
 	    return new ResponseEntity<String>("Ο χρήστης δεν βρέθηκε..",HttpStatus.BAD_REQUEST);
 	}
 	
-
+	/*
 
 	@PostMapping("/newforeas")
 	public ResponseEntity<?> newForeas(@Valid @RequestBody ForeasModel foreas, BindingResult result){
@@ -51,6 +46,7 @@ public class SecureLayerController {
         }
 		return ResponseEntity.ok(userDetailsService.save(foreas));
 	}
+	*/
 
 	
 	private void authenticate(String username, String password) throws Exception {
@@ -62,6 +58,7 @@ public class SecureLayerController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+	
 	
 	
 }
