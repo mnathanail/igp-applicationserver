@@ -89,13 +89,33 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/status/{aitisiId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/status/{aitisiId}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateAitisisForea(@PathVariable("aitisiId") Integer aitisiId, @RequestBody StatusKey status){
 		
 		if(this.aitisiService.updateAitisi(aitisiId, status)==null)
 			return new ResponseEntity<String>("Αποτυχία αλλαγής",HttpStatus.BAD_REQUEST);
 		
 		return new ResponseEntity<AitisiModel>(this.aitisiService.updateAitisi(aitisiId, status),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/foreas/{foreasId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getForeas(@PathVariable("foreasId") Integer foreasId){
+		
+		if(this.foreasService.findById(foreasId)==null)
+			return new ResponseEntity<String>("Δεν υπάρχει χρήστης με αυτό το id",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<ForeasModel>(this.foreasService.findById(foreasId).get(),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/updateforeas/{foreasId}", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateAitisisForea(@PathVariable("foreasId") Integer foreasId, @RequestBody ForeasModel foreas){
+		
+		if(this.userDetailsService.updateForeas(foreasId, foreas)==null)
+			return new ResponseEntity<String>("Αποτυχία αλλαγής",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<ForeasModel>(this.userDetailsService.updateForeas(foreasId, foreas),HttpStatus.OK);
 	}
 	
 }
