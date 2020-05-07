@@ -49,14 +49,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)
-	public ResponseEntity<String> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
+	public ResponseEntity<?> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
 		
 		if(result.hasErrors() || this.aitisiService.createAitisi(foreasId,aitisi)==null ) {
 			return new ResponseEntity<String>("Apotuxia dhmiourgias",HttpStatus.BAD_REQUEST);
         }
 
-	this.aitisiService.createAitisi(foreasId,aitisi);
-	return new ResponseEntity<String>("Epituxhmenh dimiourgia!",HttpStatus.CREATED);
+	
+	return new ResponseEntity<AitisiModel>(this.aitisiService.createAitisi(foreasId,aitisi),HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/aitisis/{foreasId}", method = RequestMethod.GET)

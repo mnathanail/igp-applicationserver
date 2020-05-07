@@ -72,9 +72,11 @@ public class AitisiServiceImpl implements AitisiService {
 			 case REJECTED:
 				 existingAitisi.setStatus(new StatusKey(StatusEnum.REJECTED));
 				 existingAitisi.setSubmition_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
+				 existingAitisi.setSubmition_date_expiration(null);
 				 break;
 			 default:
 				 existingAitisi.setStatus(new StatusKey(StatusEnum.PENDING));
+				 existingAitisi.setSubmition_date_expiration(null);
 			 }
 			 
 			   AitisiModel updatedAitisi = aitisiDao.save(existingAitisi);
