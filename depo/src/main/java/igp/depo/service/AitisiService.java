@@ -1,5 +1,7 @@
 package igp.depo.service;
 
+
+import java.util.List;
 import java.util.Set;
 
 import igp.depo.model.AitisiModel;
@@ -11,4 +13,7 @@ public interface AitisiService {
 	Set<AitisiModel> fetchAitisis (Integer foreasId);
 	
 	AitisiModel updateAitisi(Integer aitisiId, StatusKey status);
+	
+	
+	List<AitisiModel> findAllAitisis();
 }

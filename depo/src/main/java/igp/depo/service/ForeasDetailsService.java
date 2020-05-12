@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import igp.depo.model.AitisiModel;
 import igp.depo.model.ForeasDetails;
 import igp.depo.model.ForeasModel;
 import igp.depo.model.StatusKey;
@@ -63,6 +65,14 @@ public class ForeasDetailsService implements UserDetailsService {
 			 existingForeas.setName(foreas.getName());
 			 existingForeas.setSurname(foreas.getSurname());
 			 existingForeas.setDistinctiveTitle(foreas.getDistinctiveTitle());
+			 
+			 
+			 if (existingForeas.getAitisi()!=null) {
+			 for(AitisiModel aitisi : existingForeas.getAitisi()) {
+				 aitisi.setForeasTitle(existingForeas.getDistinctiveTitle());
+			 }
+			 }
+
 			 existingForeas.setAfm(foreas.getAfm());
 			 existingForeas.setDoy(foreas.getDoy());
 			 existingForeas.setGemh(foreas.getGemh());

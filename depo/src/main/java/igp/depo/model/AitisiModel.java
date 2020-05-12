@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,15 +34,20 @@ public class AitisiModel implements Serializable {
 	  @Column(name = "AITISID")
 	  private Integer aitisiId;
 	  
-	  @ManyToOne(fetch = FetchType.LAZY)
+	  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	  @JoinColumn(name = "aitisi_foreas_id_fk", nullable = false)
 	  @OnDelete(action = OnDeleteAction.CASCADE)
 	  private ForeasModel foreas;
 
-	  @NotBlank
-	  @Size(min = 3, max = 100)
-	  @Column(name = "ACTIVITY")
+
+	  @NotNull
+	  @Column(name = "REGULATEDACTIVITY")
 	  private String regulatedActivity;
+	  
+	  
+	  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	  @JoinColumn(name = "regulated_activity_id_fk", nullable = false)
+	  private RegulatedActivity activity;
 	  
 	
 	  @Column(name = "DOCUMENT1")
@@ -124,32 +130,64 @@ public class AitisiModel implements Serializable {
 		this.aitisiId = id;
 	}
 
-	@JsonIgnore
+	
 	public int getForea_id(){
 	    return foreas.getFid();
 	}
+	
+	
+	public void setForea_id(Integer id){
+	   this.foreas.setFid(id);
+	}
+	
 
 	@JsonIgnore
 	public ForeasModel getForeas() {
 		return foreas;
 	}
 
-
 	@JsonIgnore
 	public void setForeas(ForeasModel foreas) {
 		this.foreas = foreas;
 	}
-
+	
+	
+	// REGULATED ACTIVITY KEY START
+	
 	public String getRegulatedActivity() {
 		return regulatedActivity;
 	}
 
+
 	public void setRegulatedActivity(String regulatedActivity) {
 		this.regulatedActivity = regulatedActivity;
 	}
-
-
 	
+	// REGULATED ACTIVITY KEY END
+	
+	// REGULATED ACTIVITY OBJECT START
+	
+	
+	
+	public int getActivity_id(){
+	    return activity.getActivityId();
+	}
+
+
+	public void setActivity_id(Integer id){
+	   this.activity.setActivityId(id);
+	}
+	
+	@JsonIgnore
+	public RegulatedActivity getActivity() {
+		return activity;
+	}
+	
+	@JsonIgnore
+	public void setActivity(RegulatedActivity regulatedActivity) {
+		this.activity = regulatedActivity;
+	}
+	// REGULATED ACTIVITY OBJECT END
 
 
 	public boolean isDocument1() {

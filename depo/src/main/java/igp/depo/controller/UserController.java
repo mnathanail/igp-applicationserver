@@ -1,6 +1,7 @@
 package igp.depo.controller;
 
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import igp.depo.model.AitisiModel;
 import igp.depo.model.ForeasModel;
+import igp.depo.model.RegulatedActivity;
 import igp.depo.model.StatusKey;
 import igp.depo.service.AitisiService;
 import igp.depo.service.ForeasDetailsService;
 import igp.depo.service.ForeasService;
+import igp.depo.service.RegulatedActivityService;
 
 @RestController
 public class UserController {
@@ -33,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private ForeasDetailsService userDetailsService;
+	
+	@Autowired
+	private RegulatedActivityService regulatedActivityService;
 	
 	@GetMapping("/")
 	public String index(){
@@ -116,6 +122,29 @@ public class UserController {
 			return new ResponseEntity<String>("Αποτυχία αλλαγής",HttpStatus.BAD_REQUEST);
 		
 		return new ResponseEntity<ForeasModel>(this.userDetailsService.updateForeas(foreasId, foreas),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/admin/getaitisis", method = RequestMethod.GET)
+	public  ResponseEntity<?> getAitisis(){
+		if(this.aitisiService.findAllAitisis() == null)
+			return new ResponseEntity<String>("Δεν υπάρχουν αιτήσεις",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<List<AitisiModel>>(this.aitisiService.findAllAitisis(),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/admin/batchcreate", method = RequestMethod.POST)
+	public void batchCreate(){
+		regulatedActivityService.batchCreate();
+	}
+	
+	@RequestMapping(value = "/getregulatedactivities", method = RequestMethod.GET)
+	public ResponseEntity<?> getRegulatedActivites(){
+		if(this.regulatedActivityService.getRegulatedActivities().isEmpty())
+			return new ResponseEntity<String>("Δεν υπάρχουν δραστηριοτητες φορέα",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<List<RegulatedActivity>>(this.regulatedActivityService.getRegulatedActivities(),HttpStatus.OK);
 	}
 	
 }

@@ -88,7 +88,7 @@ public class ForeasModel implements Serializable{
 	@Column(name = "PASSWORD", columnDefinition="text", length=10485760)
 	private String password;
 	
-	@OneToMany(mappedBy = "foreas", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "foreas", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AitisiModel> aitisi;
 	
 	private boolean active = true;

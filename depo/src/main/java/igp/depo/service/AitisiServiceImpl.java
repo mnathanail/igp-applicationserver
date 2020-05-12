@@ -3,6 +3,7 @@ package igp.depo.service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import igp.depo.model.AitisiModel;
 import igp.depo.model.ForeasModel;
+import igp.depo.model.RegulatedActivity;
 import igp.depo.model.StatusKey;
 import igp.depo.repo.AitisiDao;
 import igp.depo.repo.ForeasDao;
+import igp.depo.repo.RegulatedActivityDao;
 import igp.depo.utils.StatusEnum;
 
 @Service
@@ -27,6 +30,9 @@ public class AitisiServiceImpl implements AitisiService {
 	@Autowired
 	private ForeasDao foreasDao;
 	
+	@Autowired
+	private RegulatedActivityDao regulatedActivityDao;
+	
 
 	@Override
 	@Transactional
@@ -34,13 +40,24 @@ public class AitisiServiceImpl implements AitisiService {
 		Set<AitisiModel> aitisis = new HashSet<>();
 		
 		try {
-	    Optional<ForeasModel> byId = this.foreasDao.findById(foreasId);
-	    ForeasModel foreas = byId.get();
+			
+	    Optional<ForeasModel> foreasById = this.foreasDao.findById(foreasId);
+	    ForeasModel foreas = foreasById.get();
 	    aitisi.setStatus(new StatusKey(StatusEnum.PENDING));
+	    
+	    RegulatedActivity activity = regulatedActivityDao.findByName(aitisi.getRegulatedActivity());
+	    aitisi.setActivity(activity);
+	    
 	    aitisi.setForeas(foreas);
 	    aitisi.setForeasTitle(foreas.getDistinctiveTitle());
+	    aitisi.setActivity_id(activity.getActivityId());
+	    aitisi.setForea_id(foreas.getFid());
 	    aitisis.add(this.aitisiDao.save(aitisi));
+	    
+	    activity.setAitisis(aitisis);
+	    
 	    foreas.setAitisi(aitisis);
+	    
 		}
 		catch(Exception e) {aitisi=null;}
 	    
@@ -53,6 +70,14 @@ public class AitisiServiceImpl implements AitisiService {
 		
 		return this.foreasDao.findById(foreasId).get().getAitisi();
 		
+	}
+	
+	
+	
+	@Override
+	@Transactional
+	public List<AitisiModel> findAllAitisis(){
+		 return this.aitisiDao.findAllAitisis();
 	}
 	
 	
