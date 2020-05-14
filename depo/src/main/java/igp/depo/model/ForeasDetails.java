@@ -32,16 +32,6 @@ public class ForeasDetails implements UserDetails {
 				.collect(Collectors.toList());
 	}
 	
-	public ForeasDetails(AdminModel admin) {
-		fid = admin.getAdmin_id();
-		username = admin.getAdminPassword();
-		password = admin.getAdminUsername();
-		active = admin.isActive();
-		authorities = Arrays.stream(admin.getRoles().split(","))
-				.map(SimpleGrantedAuthority::new)
-				.collect(Collectors.toList());
-	}
-	
 	public ForeasDetails() {}
 	
 	@Override
