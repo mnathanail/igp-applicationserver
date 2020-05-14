@@ -31,7 +31,7 @@ public class RegulatedActivity implements Serializable{
 	private String name;
 	
 	
-	@OneToMany(mappedBy = "regulatedActivity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "activity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AitisiModel> aitisis;
 
 

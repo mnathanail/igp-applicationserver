@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import igp.depo.model.ForeasModel;
+
+import igp.depo.model.ForeasDetails;
 import igp.depo.service.ForeasDetailsService;
 
 @RestController
@@ -27,11 +28,11 @@ public class SecureLayerController {
 	
 	
 	@RequestMapping(value = "/loginforeas", method = RequestMethod.POST)
-	public ResponseEntity<?> foreasUsername(@RequestBody ForeasModel foreas) throws Exception {
-		authenticate(foreas.getUsername(), foreas.getPassword());
+	public ResponseEntity<?> foreasUsername(@RequestBody ForeasDetails user) throws Exception {
+		authenticate(user.getUsername(), user.getPassword());
 		
-		if(userDetailsService.loadUserByUsername(foreas.getUsername())!=null) {
-			return ResponseEntity.ok(userDetailsService.loadUserByUsername(foreas.getUsername()));
+		if(userDetailsService.loadUserByUsername(user.getUsername())!=null) {
+			return ResponseEntity.ok(userDetailsService.loadUserByUsername(user.getUsername()));
 		}
 	    return new ResponseEntity<String>("Ο χρήστης δεν βρέθηκε..",HttpStatus.BAD_REQUEST);
 	}

@@ -32,7 +32,6 @@ public class AitisiServiceImpl implements AitisiService {
 	
 	@Autowired
 	private RegulatedActivityDao regulatedActivityDao;
-	
 
 	@Override
 	@Transactional
@@ -44,6 +43,8 @@ public class AitisiServiceImpl implements AitisiService {
 	    Optional<ForeasModel> foreasById = this.foreasDao.findById(foreasId);
 	    ForeasModel foreas = foreasById.get();
 	    aitisi.setStatus(new StatusKey(StatusEnum.PENDING));
+	    
+	    
 	    
 	    RegulatedActivity activity = regulatedActivityDao.findByName(aitisi.getRegulatedActivity());
 	    aitisi.setActivity(activity);
@@ -58,6 +59,8 @@ public class AitisiServiceImpl implements AitisiService {
 	    
 	    foreas.setAitisi(aitisis);
 	    
+	    
+	    
 		}
 		catch(Exception e) {aitisi=null;}
 	    
@@ -71,8 +74,14 @@ public class AitisiServiceImpl implements AitisiService {
 		return this.foreasDao.findById(foreasId).get().getAitisi();
 		
 	}
-	
-	
+
+	@Override
+	@Transactional
+	public AitisiModel getAitisiById(Integer aitisiId){
+		
+		return this.aitisiDao.findById(aitisiId).get();
+		
+	}
 	
 	@Override
 	@Transactional
@@ -87,20 +96,21 @@ public class AitisiServiceImpl implements AitisiService {
 		
 		 if (this.aitisiDao.findById(aitisiId).isPresent()){
 			 AitisiModel existingAitisi = this.aitisiDao.findById(aitisiId).get();
-
-			  
+			 
 			 switch(status.getStatus()) {
 			 case ACCEPTED:
 				 existingAitisi.setStatus(new StatusKey(StatusEnum.ACCEPTED));
+				 existingAitisi.setRevision_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
 				 existingAitisi.setSubmition_date_expiration(LocalDateTime.now( ZoneId.of( "Europe/Athens" )).plusYears(1));
 				 break;
 			 case REJECTED:
 				 existingAitisi.setStatus(new StatusKey(StatusEnum.REJECTED));
-				 existingAitisi.setSubmition_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
+				 existingAitisi.setRevision_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
 				 existingAitisi.setSubmition_date_expiration(null);
 				 break;
 			 default:
 				 existingAitisi.setStatus(new StatusKey(StatusEnum.PENDING));
+				 existingAitisi.setRevision_date(LocalDateTime.now( ZoneId.of( "Europe/Athens" )));
 				 existingAitisi.setSubmition_date_expiration(null);
 			 }
 			 

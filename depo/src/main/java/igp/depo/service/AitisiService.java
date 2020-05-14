@@ -16,4 +16,6 @@ public interface AitisiService {
 	
 	
 	List<AitisiModel> findAllAitisis();
+	
+	AitisiModel getAitisiById(Integer aitisiId);
 }

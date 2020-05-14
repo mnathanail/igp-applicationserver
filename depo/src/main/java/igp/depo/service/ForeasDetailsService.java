@@ -11,10 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import igp.depo.model.AdminModel;
 import igp.depo.model.AitisiModel;
 import igp.depo.model.ForeasDetails;
 import igp.depo.model.ForeasModel;
 import igp.depo.model.StatusKey;
+import igp.depo.repo.AdminDao;
 import igp.depo.repo.ForeasDao;
 import igp.depo.utils.StatusEnum;
 
@@ -23,6 +25,9 @@ public class ForeasDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private ForeasDao foreasDao;
+	
+	@Autowired
+	private AdminDao adminDao;
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -39,12 +44,26 @@ public class ForeasDetailsService implements UserDetailsService {
 		
 		ForeasModel foreas = foreasDao.findByUsername(username);
 		
-		if(foreas == null)
+		if(foreas == null) {
+			
+			AdminModel admin = adminDao.findByAdminusername(username);
+			
+			if(admin != null) 
+				return new ForeasDetails(admin);
+
 			new UsernameNotFoundException("username "+username+" not found.");
+		}
 		
 		return new ForeasDetails(foreas);
 
 	}
+	
+	@Transactional
+	public AdminModel save(AdminModel admin) {
+		admin.setAdminPassword(bcryptEncoder.encode(admin.getAdminPassword()));
+		return this.adminDao.save(admin);
+	}
+	
 
 	@Transactional
 	public ForeasModel save(ForeasModel foreas) {
@@ -105,10 +124,7 @@ if (matcher.matches()) {
     return existingForeas;
 }
 else return null;
-			 
-			 
-	         
-	         
+
 	        }else{
 	            return null;
 	        }

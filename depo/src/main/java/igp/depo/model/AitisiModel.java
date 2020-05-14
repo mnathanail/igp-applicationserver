@@ -108,6 +108,9 @@ public class AitisiModel implements Serializable {
 	  @Column(name = "DATE", nullable = false, updatable = true, insertable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	  private LocalDateTime submition_date = LocalDateTime.now(ZoneId.of( "Europe/Athens" ));
 	  
+	  @Column(name = "REVISIONDATE", nullable = true, updatable = true, insertable = true, columnDefinition = "TIMESTAMP")
+	  private LocalDateTime revision_date;
+	  
 	  @Column(name = "EXPIRATIONDATE", nullable = true, updatable = true, insertable = true, columnDefinition = "TIMESTAMP")
 	  private LocalDateTime submition_date_expiration;
 	  
@@ -347,6 +350,16 @@ public class AitisiModel implements Serializable {
 
 	public void setSubmition_date(LocalDateTime submition_date) {
 		this.submition_date = submition_date;
+	}
+
+
+	public LocalDateTime getRevision_date() {
+		return revision_date;
+	}
+
+
+	public void setRevision_date(LocalDateTime revision_date) {
+		this.revision_date = revision_date;
 	}
 
 

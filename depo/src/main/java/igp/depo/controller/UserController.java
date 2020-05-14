@@ -1,6 +1,4 @@
 package igp.depo.controller;
-
-
 import java.util.List;
 import java.util.Set;
 
@@ -18,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import igp.depo.model.AitisiModel;
 import igp.depo.model.ForeasModel;
+import igp.depo.model.LogModel;
 import igp.depo.model.RegulatedActivity;
 import igp.depo.model.StatusKey;
+import igp.depo.repo.LogDao;
 import igp.depo.service.AitisiService;
 import igp.depo.service.ForeasDetailsService;
 import igp.depo.service.ForeasService;
+import igp.depo.service.LogService;
 import igp.depo.service.RegulatedActivityService;
 
 @RestController
@@ -40,6 +41,12 @@ public class UserController {
 	@Autowired
 	private RegulatedActivityService regulatedActivityService;
 	
+	@Autowired
+	private LogDao logDao;
+	
+	@Autowired
+	private LogService logService;
+	
 	@GetMapping("/")
 	public String index(){
 	return "silence is gold";
@@ -56,11 +63,12 @@ public class UserController {
 
 	@RequestMapping(value = "/{foreasId}/create", method = RequestMethod.POST)
 	public ResponseEntity<?> create(@Valid @RequestBody AitisiModel aitisi, BindingResult result, @PathVariable("foreasId") Integer foreasId){
-		
+
 		if(result.hasErrors() || this.aitisiService.createAitisi(foreasId,aitisi)==null ) {
 			return new ResponseEntity<String>("Apotuxia dhmiourgias",HttpStatus.BAD_REQUEST);
         }
 
+	    this.logDao.save(new LogModel(aitisi.getForea_id()," created a new application form with regulated activity "+aitisi.getRegulatedActivity()));
 	
 	return new ResponseEntity<AitisiModel>(this.aitisiService.createAitisi(foreasId,aitisi),HttpStatus.CREATED);
 	}
@@ -100,6 +108,20 @@ public class UserController {
 		
 		if(this.aitisiService.updateAitisi(aitisiId, status)==null)
 			return new ResponseEntity<String>("Αποτυχία αλλαγής",HttpStatus.BAD_REQUEST);
+		
+		AitisiModel existingAitisi = this.aitisiService.getAitisiById(aitisiId);
+		
+		switch(status.getStatus()) {
+		 case ACCEPTED:
+			 this.logDao.save(new LogModel(existingAitisi.getForea_id(),"Admin has accepted application form with regulated activity "+existingAitisi.getRegulatedActivity()));
+			 break;
+		 case REJECTED:
+			 this.logDao.save(new LogModel(existingAitisi.getForea_id(),"Admin has rejected application form with regulated activity "+existingAitisi.getRegulatedActivity()));
+			 break;
+		 default:
+			
+		 }
+		
 		
 		return new ResponseEntity<AitisiModel>(this.aitisiService.updateAitisi(aitisiId, status),HttpStatus.OK);
 	}
@@ -145,6 +167,12 @@ public class UserController {
 			return new ResponseEntity<String>("Δεν υπάρχουν δραστηριοτητες φορέα",HttpStatus.BAD_REQUEST);
 		
 		return new ResponseEntity<List<RegulatedActivity>>(this.regulatedActivityService.getRegulatedActivities(),HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/gethistory/{foreasId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getHistory(@PathVariable("foreasId") Integer foreasId){
+		
+	return new ResponseEntity<List<LogModel>>(this.logService.findForeasLogs(foreasId),HttpStatus.OK);
 	}
 	
 }
