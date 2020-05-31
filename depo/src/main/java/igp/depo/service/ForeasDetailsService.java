@@ -49,7 +49,7 @@ public class ForeasDetailsService implements UserDetailsService {
 	@Transactional
 	public ForeasModel save(ForeasModel foreas) {
 		foreas.setPassword(bcryptEncoder.encode(foreas.getPassword()));
-		foreas.setStatus(new StatusKey(StatusEnum.PENDING));
+		foreas.setStatus(new StatusKey(StatusEnum.ACCEPTED));
 		return this.foreasDao.save(foreas);
 	}
 	

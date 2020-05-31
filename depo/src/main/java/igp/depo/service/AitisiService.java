@@ -1,6 +1,7 @@
 package igp.depo.service;
 
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -18,4 +19,10 @@ public interface AitisiService {
 	List<AitisiModel> findAllAitisis();
 	
 	AitisiModel getAitisiById(Integer aitisiId);
+	
+	List<AitisiModel> findAitisisByMonth(Integer month);
+	
+	String findAverageResponse() throws ParseException;
+	
+	String findAcceptedPercent();
 }

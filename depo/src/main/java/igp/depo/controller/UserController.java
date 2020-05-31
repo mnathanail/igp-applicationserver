@@ -1,4 +1,5 @@
 package igp.depo.controller;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -90,7 +91,7 @@ public class UserController {
 			return foreasService.findByUsername(foreas.getUsername());
 		}
 	    return foreasService.findByUsername(foreas.getUsername());
-	}*/
+	}
 
 	
 	@RequestMapping(value = "/loginusername", method = RequestMethod.POST)
@@ -100,7 +101,7 @@ public class UserController {
 			return foreasService.findByUsername(foreas.getUsername());
 		}
 	    return foreasService.findByUsername(foreas.getUsername());
-	}
+	}*/
 	
 	
 	@RequestMapping(value = "/status/{aitisiId}", method = RequestMethod.PUT)
@@ -111,18 +112,23 @@ public class UserController {
 		
 		AitisiModel existingAitisi = this.aitisiService.getAitisiById(aitisiId);
 		
+		
+		
+		
+		
 		switch(status.getStatus()) {
 		 case ACCEPTED:
 			 this.logDao.save(new LogModel(existingAitisi.getForea_id(),"Admin has accepted application form with regulated activity "+existingAitisi.getRegulatedActivity()));
+			 this.foreasService.sendmail(existingAitisi.getForeasEmail(),"Admin has accepted application form with regulated activity "+existingAitisi.getRegulatedActivity());
 			 break;
 		 case REJECTED:
 			 this.logDao.save(new LogModel(existingAitisi.getForea_id(),"Admin has rejected application form with regulated activity "+existingAitisi.getRegulatedActivity()));
+			 this.foreasService.sendmail(existingAitisi.getForeasEmail(),"Admin has rejected application form with regulated activity "+existingAitisi.getRegulatedActivity());
 			 break;
 		 default:
 			
 		 }
-		
-		
+
 		return new ResponseEntity<AitisiModel>(this.aitisiService.updateAitisi(aitisiId, status),HttpStatus.OK);
 	}
 	
@@ -173,6 +179,28 @@ public class UserController {
 	public ResponseEntity<?> getHistory(@PathVariable("foreasId") Integer foreasId){
 		
 	return new ResponseEntity<List<LogModel>>(this.logService.findForeasLogs(foreasId),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/findaitisisbymonth/{month}", method = RequestMethod.GET)
+	public ResponseEntity<?> findAitisisByMonth(@PathVariable("month") Integer month){
+		
+		if(this.aitisiService.findAitisisByMonth(month) == null)
+			return new ResponseEntity<String>("Δεν υπάρχουν αιτήσεις",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<List<AitisiModel>>(this.aitisiService.findAitisisByMonth(month),HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value = "/findaveragetime", method = RequestMethod.GET)
+	public ResponseEntity<?> findAverageTime() throws ParseException{
+		return new ResponseEntity<String>(this.aitisiService.findAverageResponse(),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/findacceptedpercent", method = RequestMethod.GET)
+	public ResponseEntity<?> findAcceptedPercent() throws ParseException{
+		return new ResponseEntity<String>(this.aitisiService.findAcceptedPercent(),HttpStatus.OK);
 	}
 	
 }

@@ -2,7 +2,10 @@ package igp.depo.service;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import igp.depo.model.ForeasModel;
@@ -14,6 +17,9 @@ public class ForeasServiceImpl implements ForeasService{
 	
 	@Autowired
 	private ForeasDao foreasDao;
+	
+	@Autowired
+    private JavaMailSender javaMailSender;
 
 	
 	@Override
@@ -59,6 +65,17 @@ public class ForeasServiceImpl implements ForeasService{
 		Optional<ForeasModel> foreasRes = foreasDao.findById(id);
 		return foreasRes;
 	}
+	
+	
+	public void sendmail(String recipient, String msg) {
+		SimpleMailMessage smm = new SimpleMailMessage();
+		smm.setTo(recipient);
+
+		smm.setSubject("Application form status");
+		smm.setText(msg);
+
+        javaMailSender.send(smm);
+		}
 	
 
 }

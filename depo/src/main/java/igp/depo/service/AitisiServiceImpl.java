@@ -1,7 +1,10 @@
 package igp.depo.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -121,6 +124,104 @@ public class AitisiServiceImpl implements AitisiService {
 	            return null;
 	        }
 	}
+	
+	
+	@Override
+	@Transactional
+	public List<AitisiModel> findAitisisByMonth(Integer month){
+		
+		return aitisiDao.findAitisisByMonth(month);
+	}
+	
+	@Override
+	@Transactional	
+public String findAverageResponse() throws ParseException{
+	List<AitisiModel> aitisis = this.aitisiDao.findAllAitisis();
+	
+	long num = 0;
+	
+	if(!aitisis.isEmpty()) { 
+	
+	for (int i = 0; i<aitisis.size(); i++) {
+		
+		if(aitisis.get(i).getRevision_date()!=null) {
+	
+	String dateStart = aitisis.get(i).getSubmition_date().toString();
+	String dateStop = aitisis.get(i).getRevision_date().toString();
+
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+	Date d1 = null;
+	Date d2 = null;
+	
+		d1 = format.parse(dateStart);
+		d2 = format.parse(dateStop);
+
+		//milliseconds
+		long diff = d2.getTime() - d1.getTime();
+		
+		num+= diff;
+
+		/*long diffSeconds = diff / 1000 % 60;
+		long diffMinutes = diff / (60 * 1000) % 60;
+		long diffHours = diff / (60 * 60 * 1000) % 24;
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+
+		System.out.print(diffDays + " days, ");
+		System.out.print(diffHours + " hours, ");
+		System.out.print(diffMinutes + " minutes, ");
+		System.out.print(diffSeconds + " seconds.");*/
+		}
+		else {
+			continue;
+		}
+	}
+	
+	}
+	else {
+		return "No forms available..";
+	}
+	
+	long res = num / aitisis.size();
+	
+	long diffSeconds = res / 1000 % 60;
+	long diffMinutes = res / (60 * 1000) % 60;
+	long diffHours = res / (60 * 60 * 1000) % 24;
+	long diffDays = res / (24 * 60 * 60 * 1000);
+		
+		return (diffDays + " days, "+diffHours + " hours, "+diffMinutes + " minutes, "+diffSeconds + " seconds.");
+	}
+	
+	
+	
+	
+	@Override
+	@Transactional	
+	public String findAcceptedPercent(){
+		List<AitisiModel> aitisis = this.aitisiDao.findAllAitisis();
+		
+		int accepted = 0;
+		
+		if(!aitisis.isEmpty()) { 
+		
+		for (int i = 0; i<aitisis.size(); i++) {
+			
+			if(aitisis.get(i).getSubmition_date_expiration()!=null) {
+				accepted++;
+				}
+			else continue;
+			}
+		
+	}else {
+		return "No forms available..";
+	}
+		
+		double result = (double)(accepted * 100)/aitisis.size();
+		
+		return result +" % are accepted.";
+	}
+	
+	
 	
 
 }

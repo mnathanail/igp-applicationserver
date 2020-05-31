@@ -9,4 +9,6 @@ public interface ForeasService {
 	Optional<ForeasModel> findById(Integer id);
 	ForeasModel findByUsername(String username);
 	ForeasModel foreasLogin(String username, String password);
+	
+	void sendmail(String recipient, String msg);
 }

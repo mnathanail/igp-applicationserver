@@ -383,5 +383,8 @@ public class AitisiModel implements Serializable {
 	}
 	
 	
+	public String getForeasEmail() {
+		return this.foreas.getEmail();
+	}
 
 }
