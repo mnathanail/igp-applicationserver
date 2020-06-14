@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import igp.depo.annotations.EmailValidation;
 import igp.depo.annotations.NumberValidation;
 import igp.depo.annotations.UniqueUsername;
@@ -225,6 +228,7 @@ public class ForeasModel implements Serializable{
 	}
 
 
+	@JsonIgnoreProperties(value = {"parentActivity"})
 	public void setAitisi(Set<AitisiModel> aitisi) {
 		this.aitisi = aitisi;
 	}
