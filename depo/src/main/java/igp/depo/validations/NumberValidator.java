@@ -16,6 +16,7 @@ public class NumberValidator implements ConstraintValidator<NumberValidation,Str
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		
 	     try {
+	    	 if(value == null || value.isEmpty()) return true;
 	       value = value.replaceAll("\\s+","");
 	       Double.parseDouble(value);
 	     } catch (NumberFormatException e) {

@@ -129,8 +129,13 @@ public class AitisiServiceImpl implements AitisiService {
 	@Override
 	@Transactional
 	public List<AitisiModel> findAitisisByMonth(Integer month){
-		
 		return aitisiDao.findAitisisByMonth(month);
+	}
+	
+	@Override
+	@Transactional
+	public List<AitisiModel> findAitisisByMonthById(Integer month, Integer id){
+		return aitisiDao.findAitisisByMonthById(month,id);
 	}
 	
 	@Override

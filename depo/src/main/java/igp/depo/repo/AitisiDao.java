@@ -18,4 +18,6 @@ public interface AitisiDao extends JpaRepository<AitisiModel, Integer> {
 	@Query("FROM AitisiModel WHERE extract(month FROM submition_date) = :month")
 	List<AitisiModel> findAitisisByMonth(@Param("month") Integer month);
 	
+	@Query("FROM AitisiModel WHERE extract(month FROM submition_date) = :month AND aitisi_foreas_id_fk = :id")
+	List<AitisiModel> findAitisisByMonthById(@Param("month") Integer month, @Param("id") Integer id);
 }

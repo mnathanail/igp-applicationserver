@@ -85,17 +85,17 @@ public class ForeasDetailsService implements UserDetailsService {
 			 existingForeas.setPassword(bcryptEncoder.encode(foreas.getPassword()));
 			 
 			 
-			 String[] nums = new String[] {
+			 /*  String[] nums = new String[] {
 					 existingForeas.getAfm(), existingForeas.getGemh(), existingForeas.getPhoneNumber()
 					 };
 			 
-			 for(String num: nums) {
+			for(String num: nums) {
 				 try {
 					num = num.replaceAll("\\s+","");
 				       Double.parseDouble(num);
 				     } catch (NumberFormatException e) {
 				    	 return null;
-				     } }
+				     } }*/
 			 
 			 pattern = Pattern.compile(EMAIL_PATTERN);
 			 matcher = pattern.matcher(existingForeas.getEmail());			 

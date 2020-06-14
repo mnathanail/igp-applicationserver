@@ -29,18 +29,13 @@ public class ForeasModel implements Serializable{
 	@Column(name = "FOREASID")
 	private Integer fid;
 
-	
-	@NotBlank
-	@Size(min = 2, max = 30)
+
 	@Column(name = "NAME")
 	private String name;
 	
-	@NotBlank
-	@Size(min = 2, max = 30)
 	@Column(name = "SURNAME")
 	private String surname;
 	
-	@NotBlank
 	@Column(name = "TITLE")
 	private String distinctiveTitle;
 	
@@ -49,19 +44,15 @@ public class ForeasModel implements Serializable{
 	@NumberValidation(message="Incorrect Number")
 	private String afm;
 	
-	@NotBlank
 	@Column(name = "DOY")
 	private String doy;
 	
-	@NotBlank
 	@Column(name = "GEMH")
 	private String gemh;
 	
-	@NotBlank
 	@Column(name = "ADDRESS")
 	private String address;
 	
-	@NotBlank
 	@Column(name = "PHONE")
 	@NumberValidation(message="Incorrect Number")
 	private String phoneNumber;
@@ -74,7 +65,6 @@ public class ForeasModel implements Serializable{
 	@EmailValidation(message="Incorrect Email")
 	private String email;
 	
-	@NotBlank
 	@Column(name = "CONTACTMEMBER")
 	private String contactMember;
 	

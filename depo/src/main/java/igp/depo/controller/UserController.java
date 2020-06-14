@@ -192,6 +192,16 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value = "/findaitisisbymonthbyid/{id}/{month}", method = RequestMethod.GET)
+	public ResponseEntity<?> findAitisisByMonthById(@PathVariable("month") Integer month, @PathVariable("id") Integer id){
+		
+		if(this.aitisiService.findAitisisByMonthById(month, id) == null)
+			return new ResponseEntity<String>("Δεν υπάρχουν αιτήσεις",HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<List<AitisiModel>>(this.aitisiService.findAitisisByMonthById(month, id),HttpStatus.OK);
+		
+	}
+	
 	@RequestMapping(value = "/findaveragetime", method = RequestMethod.GET)
 	public ResponseEntity<?> findAverageTime() throws ParseException{
 		return new ResponseEntity<String>(this.aitisiService.findAverageResponse(),HttpStatus.OK);

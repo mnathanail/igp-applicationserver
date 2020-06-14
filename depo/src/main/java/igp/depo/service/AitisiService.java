@@ -25,4 +25,6 @@ public interface AitisiService {
 	String findAverageResponse() throws ParseException;
 	
 	String findAcceptedPercent();
+	
+	List<AitisiModel> findAitisisByMonthById(Integer month, Integer id);
 }
