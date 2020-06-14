@@ -67,11 +67,11 @@ public class ForeasDetailsService implements UserDetailsService {
 			 existingForeas.setDistinctiveTitle(foreas.getDistinctiveTitle());
 			 
 			 
-			/* if (existingForeas.getAitisi()!=null) {
+			 if (existingForeas.getAitisi()!=null) {
 			 for(AitisiModel aitisi : existingForeas.getAitisi()) {
 				 aitisi.setForeasTitle(existingForeas.getDistinctiveTitle());
 			 }
-			 }*/
+			 }
 
 			 existingForeas.setAfm(foreas.getAfm());
 			 existingForeas.setDoy(foreas.getDoy());
