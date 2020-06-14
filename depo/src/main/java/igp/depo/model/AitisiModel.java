@@ -156,12 +156,12 @@ public class AitisiModel implements Serializable {
 	
 	
 	// REGULATED ACTIVITY KEY START
-	
+	@JsonIgnore
 	public String getRegulatedActivity() {
 		return regulatedActivity;
 	}
 
-
+	@JsonIgnore
 	public void setRegulatedActivity(String regulatedActivity) {
 		this.regulatedActivity = regulatedActivity;
 	}
@@ -171,12 +171,12 @@ public class AitisiModel implements Serializable {
 	// REGULATED ACTIVITY OBJECT START
 	
 	
-	
+	@JsonIgnore
 	public int getActivity_id(){
 	    return activity.getActivityId();
 	}
 
-
+	@JsonIgnore
 	public void setActivity_id(Integer id){
 	   this.activity.setActivityId(id);
 	}
