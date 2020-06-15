@@ -82,7 +82,8 @@ public class ForeasDetailsService implements UserDetailsService {
 			 existingForeas.setEmail(foreas.getEmail());
 			 existingForeas.setContactMember(foreas.getContactMember());
 			 existingForeas.setUsername(foreas.getUsername());
-			 existingForeas.setPassword(bcryptEncoder.encode(foreas.getPassword()));
+			 //existingForeas.setPassword(bcryptEncoder.encode(foreas.getPassword()));
+			 existingForeas.setPassword(foreas.getPassword());
 			 
 			 
 			 /*  String[] nums = new String[] {
