@@ -17,9 +17,12 @@ public class RegulatedActivityServiceImpl implements RegulatedActivityService{
 	
 	private final String[] activities = 
 		{
-				"ΑΣΑΝΣΕΡ",
-				"ΑΝΥΨΩΤΙΚΑ ΜΗΧΑΝΗΜΑΤΑ",
-				"ΠΑΙΔΟΤΟΠΟΙ"
+				"ΣΧΟΛΕΙΑ",
+				"ΠΑΙΔΙΚΕΣ ΧΑΡΕΣ",
+				"ΓΗΠΕΔΟ ΜΠΑΣΚΕΤ",
+				"ΓΗΠΕΔΟ ΣΤΙΒΟΥ",
+				"ΓΗΠΕΔΟ ΠΟΔΟΣΦΑΙΡΟΥ",
+				"ΛΟΥΝΑ ΠΑΡΚ"
 		};
 	
 	
